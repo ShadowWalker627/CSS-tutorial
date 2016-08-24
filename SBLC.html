@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>LC is SB OR NOT</title>
+    <script type="text/javascript">
+        /**
+         * 首先会点"不是",那么光标移上去时按钮就会上下跳
+         * 那么在去点"是的"
+         *
+         * */
+        window.onload = function () {
+            var close = document.getElementById("close");
+            var yes = document.getElementById("yes");
+            var no = document.getElementById("no");
+            close.onclick = function () {
+                alert("关闭窗口也改变不了LC是SB的事实");
+            };
+
+            no.addEventListener("mouseover", noEvent);
+            yes.addEventListener("mouseover", yesChange);
+
+            function yesChange() {
+                if(yes.innerHTML != "是的"){
+                    yes.innerHTML = "是的";
+                    no.innerHTML = "不是";
+                }
+            }
+
+            function noEvent() {
+                if(no.innerHTML == "不是"){
+                    if(no.style.top == "0px"){
+                        no.style.top = '-50px';
+                    }
+                    else {
+                        no.style.top = '0';
+                        no.removeEventListener("mouseover", noEvent);
+                        no.addEventListener("mouseover",changeNo);
+                    }
+                }else {
+                    console.log("no");
+                    yes.innerHTML = "是的";
+                    no.innerHTML = "不是";
+                }
+            }
+            function changeNo() {
+                if(no.innerHTML == "不是"){
+                    no.innerHTML = "是的";
+                    yes.innerHTML = "不是";
+                }
+            }
+
+        }
+    </script>
+    <style>
+        .btn{
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+<div style="width: 400px; height: 200px; margin: 50px auto; background: lightgray" >
+    <a style="float: right; cursor: pointer; margin: 5px 15px" id="close">(这个要点)x</a>
+    <br/>
+    <div style="margin: 15px">LC 是不是 SB<small style="color: red">(先选不是)</small></div>
+    <div style="float: right; margin: 100px 15px">
+        <button class="btn" id="yes">是的</button>
+        <button class="btn" id="no" style="top: 0">不是</button>
+    </div>
+</div>
+</body>
+</html>
